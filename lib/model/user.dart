@@ -8,3 +8,16 @@ class User {
     return User(user: json["user"], token: json["token"]);
   }
 }
+
+class postModel {
+  int userId;
+  int id;
+  String title;
+  String body;
+
+
+  postModel({required this.userId ,required this.id ,required this.title ,required this.body,},)
+}
+
+
+

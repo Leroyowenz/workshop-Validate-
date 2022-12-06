@@ -1,90 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:workshop/provider/auth_provider.dart';
+import 'package:workshop/provider/user_provider.dart';
+import 'package:workshop/screens/home_page.dart';
 
 void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatefulWidget {
+class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  final _formKey = GlobalKey<>
-
-  final TextEditingController
-
-  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: SingleChildScrollView(
-        child: Form(
-          key: _formKey,
-          child: Column(
-            children: [
-              Center(
-                child: Container(
-                  padding: const EdgeInsets.only(top: 30),
-                  clipBehavior: Clip.none,
-                  child: const Text(
-                    "Registration",
-                    style: TextStyle(fontSize: 25),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(25),
-                child: TextFormField(
-                  keyboardType: TextInputType.name,
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return "Name can not be empty";
-                    }
-                    return null;
-                  },
-                  decoration: const InputDecoration(label: Text("Name",),),
-                ),
-              ),
-                 Padding(
-                padding: const EdgeInsets.all(25),
-                child: TextFormField(
-                  keyboardType: TextInputType.name,
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return "Name can not be empty";
-                    }
-                    return null;
-                  },
-                  decoration: const InputDecoration(label: Text("Email Address",),),
-                ),
-              ),
-                 Padding(
-                padding: const EdgeInsets.all(25),
-                child: TextFormField(
-                  keyboardType: TextInputType.name,
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return "Name can not be empty";
-                    }
-                    return null;
-                  },
-                  decoration: const InputDecoration(label: Text("Password",),),
-                ),
-              ),
-              Container(
-                child: ElevatedButton(onPressed: (() {
-                  
-                }),child: const Text ("submit")
-                ,),
-              )
-            ],
-          ),
-        ),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => AuthProvider()),
+        ListenableProvider(create: (_) => UserProvider()),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: "LIKEMEE",
+        theme: ThemeData(primarySwatch: Colors.green),
+        home: const HomePage(),
       ),
     );
   }

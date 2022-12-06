@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:workshop/model/user.dart';
 
 class UserProvider with ChangeNotifier {
-  var user = "";
+  var changeName = "";
 
   void setUser(User name) {
-    user = name.user;
+    changeName = name.user;
     notifyListeners();
   }
 }

@@ -48,22 +48,23 @@ class AuthProvider with ChangeNotifier {
     var result;
 
     final Map<String, dynamic> responseData = json.decode(response.body);
-
-    if (responseData.containsKey('Validation_errors')) {
-      result = {
-        'status': 500,
-        'message': responseData['Validation_errors'].toString(),
-        'data': null
-      };
-    } else {
-      var userData = responseData;
-      User user = User.fromJason(userData);
-      UserPreference().saveRegisteredUser(user);
-      result = {
-        'status': 200,
-        'message': responseData["message"],
-        'data': responseData
-      };
+    if (response.statusCode == 200) {
+      if (responseData.containsKey('Validation_errors')) {
+        result = {
+          'status': 500,
+          'message': responseData['Validation_errors'].toString(),
+          'data': null
+        };
+      } else {
+        var userData = responseData;
+        User user = User.fromJason(userData);
+        UserPreference().saveRegisteredUser(user);
+        result = {
+          'status': 200,
+          'message': responseData["message"],
+          'data': responseData
+        };
+      }
     }
   }
 
